@@ -1,0 +1,36 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Instala dependencias adicionales si es necesario
+
+      - name: Run tests
+        run: |
+          # Aquí puedes ejecutar tus pruebas
+          # Ejemplo: python -m unittest discover
+
+      - name: Release
+        run: |
+          npm install -g semantic-release
+          semantic-release
